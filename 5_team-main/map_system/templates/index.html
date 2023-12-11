@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="formInput" method="post">    
+        {% csrf_token %}
+        {{form.as_input}}
+        점포위치값(서초구/동작구) <input type="text" id="searchInput" name="store_location">
+        업종선택값(한식/중식/소매...) <input type="text" id="searchInput" name="store_select">
+        분석영역값(200M/500M/1000M) <input type="text" id="searchInput" name="store_area">
+        <button id="searchButton" >검색</button>
+    </form>
+
+</body>
+<script>
+    // input- form 연결 작업 
+    let inputData = document.getElementById("searchInput");
+    let submitBtn = document.getElementById("searchButton");
+     submitBtn.addEventListener("click", () =>{
+        let frm = document.formInput;
+        frm.action = "/service/save";
+        frm.method = "post";
+        frm.submit(); 
+ });  
+ 
+</script>
+</html>

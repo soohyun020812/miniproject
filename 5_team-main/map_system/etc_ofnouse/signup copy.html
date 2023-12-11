@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>회원가입</title>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(() => {
+            $("#btnIdCheck").click(() => {
+                console.log("****************");
+                csrf = $("input[type=hidden][name=csrfmiddlewaretoken]").val();
+                console.log(csrf);
+                $.ajax({
+                    url: "/member/idcheck",
+                    data: {"userid": $("#userid").val(), "csrfmiddlewaretoken": csrf},
+                    type: "post",
+                    dataType: "json"
+                })
+                .done((res) => {
+                    console.log(res);
+                    if (res.result == 'success') {
+                        alert("사용 가능한 아이디입니다.");
+                        $("#idcheckyn").val("Y");
+                        $("#userid").prop("readonly", true); // 읽기전용
+                    } else {
+                        alert("이미 사용 중인 아이디입니다.");
+                    }
+                })
+                .fail((res, error, status) => {
+                    console.log(status);
+                })
+            });
+        });
+    </script> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<style>
+
+    #signupForm {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 50rem;
+    }
+    h1 {
+    text-align: center;
+    }
+    
+
+
+</style>
+</head>
+<body>
+    <h1>회원가입 페이지</h1>
+
+    <form action="{% url 'service:map' %}" method="POST">
+
+        {% csrf_token %}
+
+        <div id="signupForm">
+        <!-- 사용자 닉네임 -->
+        <div class="input-group">
+            <span class="input-group-text">닉네임 :</span>
+            <input type="text" class="form-control" placeholder="nickname">
+            <button class="btn btn-success" type="button" id="btnIdCheck">중복체크</button>
+        </div>
+        
+        <!-- 사용자 아이디 -->
+        <div class="input-group">
+            <span class="input-group-text">아이디 :</span>
+            <input type="text" class="form-control" placeholder="id" id="userid" name="userid">
+        </div>
+
+        <!-- 사용자 비밀번호 -->
+        <div class="input-group">
+            <span class="input-group-text">비밀번호 :</span>
+            <input type="password" class="form-control" placeholder="password" name="password">
+        </div>
+
+        <!-- 사용자 비밀번호 확인 -->
+        <div class="input-group">
+            <span class="input-group-text">비밀번호 확인 :</span>
+            <input type="password" class="form-control" placeholder="passwordcheck" name="passwordcheck">
+        </div>
+
+        <!-- 사용자 이메일 -->
+        <div class="input-group">
+            <span class="input-group-text">이메일 :</span>
+            <input type="text" class="form-control" placeholder="email" name="email">
+        </div>
+
+        <!-- 사용자 전화번호 -->
+        <div class="input-group">
+            <span class="input-group-text">전화번호 :</span>
+            <input type="text" class="form-control" placeholder="phone" name="phone">
+        </div>
+     </div>
+        <div class="btn-group">
+            <button style="float:left" type="submit" class="btn btn-primary">가입 완료</button>
+        </div>
+
+    </form>
+</body>
+</html>

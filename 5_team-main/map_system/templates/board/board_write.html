@@ -1,0 +1,80 @@
+{% extends 'base.html' %} {% block content %} {% csrf_token %}
+
+<!-- form 안에 넣어야 뭔가가 됨 -->
+<form id="myform">
+  <div class="container mt-5">
+    <div class="mb-3 mt-3">
+      <label for="title" class="form-label">제목:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        placeholder="Enter title"
+        name="title"
+        required
+      />
+    </div>
+
+    <div class="mb-3 mt-3">
+      <label for="writer" class="form-label">작성자:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="writer"
+        placeholder="Enter writer"
+        name="writer"
+        required
+      />
+    </div>
+
+    <div class="mb-3 mt-3">
+      <label for="contents" class="form-label">내용:</label>
+      <textarea
+        class="form-control"
+        rows="5"
+        id="contents"
+        name="contents"
+      ></textarea>
+    </div>
+  </div>
+</form>
+
+<div class="container mt-5" style="text-align: right">
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" id="btnWrite">글쓰기</button>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  // $(document).ready( ()=>{
+  //   $("#btnWrite").click(()=>{
+  //     $("#myform").prop("action", "/board/save/");
+  //     $("#myform").prop("method", "post");
+  //     $("#myform").submit();
+  //   });
+  // })
+
+  $(document).ready(function () {
+    $("#btnWrite").click(function (e) {
+      e.preventDefault();
+
+      var serializedData = $("#myform").serialize();
+
+      $.ajax({
+        url: "/board/save/",
+        type: "post",
+        data: serializedData,
+        success: function (response) {
+          alert("글이 성공적으로 저장되었습니다.");
+        },
+        error: function (xhr, errmsg, err) {
+          alert("글 저장에 실패했습니다. 다시 시도해주세요.");
+        },
+      });
+    });
+  });
+</script>
+
+{%endblock%}

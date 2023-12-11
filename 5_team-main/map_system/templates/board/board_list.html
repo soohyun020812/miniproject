@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container mt-5">
+  <table class="table">
+    <colgroup>
+      <col width="8%" />
+      <col width="*" />
+      <col width="12%" />
+      <col width="12%" />
+      <col width="8%" />
+    </colgroup>
+    <thead class="table-secondary">
+      <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>조회수</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for boardItem in boardList %}
+      <tr>
+        <td>{{boardItem.id}}</td>
+        <td><a href="/board/view/{{boardItem.id}}">{{boardItem.title}}</a></td>
+        <td>{{boardItem.writer}}</td>
+        <td>{{boardItem.wdate}}</td>
+        <td>{{boardItem.hit}}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+</div>
+
+{% include "./paging.html" %}
+
+<div class="container mt-5" style="text-align: right">
+  <div class="btn-group">
+    <a href="{% url 'board:write' %}"
+      ><button type="button" class="btn btn-primary">글쓰기</button></a
+    >
+  </div>
+</div>
+
+<script>
+  function goPage(pg) {
+    location.href = "/board/list2/" + pg;
+  }
+
+  $(document).ready(() => {
+    $("#btnWrite").click(() => {
+      //화살표함수는 this사용못함
+      $("#myform").prop("action", "/board/write");
+      $("#myform").prop("method", "get");
+      $("#myform").submit();
+    });
+  });
+</script>
+
+{%endblock%}
